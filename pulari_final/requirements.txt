@@ -1,0 +1,4 @@
+django
+pillow
+colorama
+qrcode
