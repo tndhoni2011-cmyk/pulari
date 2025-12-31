@@ -1,6 +1,6 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -200,7 +200,7 @@
       <h2>PULARI PIPES</h2>
     </div>
     <ul>
-      <li><a href="intex.html">Home</a></li> 
+      <li><a href="{% url 'home' %}">Home</a></li> 
       <li><a href="#" style="color:var(--primary)">Catalog</a></li>
     </ul>
   </nav>
@@ -222,36 +222,39 @@
       <div class="product-grid">
         
         <div class="p-card reveal">
-          <div class="img-box"><img src="pvc.jpg" alt="UPVC" onerror="this.src='https://via.placeholder.com/300x200?text=UPVC+Pipe'"></div>
+          <div class="img-box"><img src="/media/pvc.jpg" alt="UPVC" onerror="this.src='https://via.placeholder.com/300x200?text=UPVC+Pipe'"></div>
           <div class="card-info">
             <h3>UPVC Pipes</h3>
             <p>Lead-free, high-pressure water transport suitable for drinking water.</p>
             <span class="price-tag">₹350</span>
-            <button class="buy-btn" onclick="buyAction()">
+            
+            <button class="buy-btn" onclick="buyAction('UPVC Pipes')">
               <i class="fa-solid fa-cart-shopping"></i> Order Now
             </button>
           </div>
         </div>
 
         <div class="p-card reveal" style="transition-delay: 0.1s;">
-          <div class="img-box"><img src="cpvc.jpg" alt="CPVC" onerror="this.src='https://via.placeholder.com/300x200?text=CPVC+Pipe'"></div>
+          <div class="img-box"><img src="/media/cpvc.jpg" alt="CPVC" onerror="this.src='https://via.placeholder.com/300x200?text=CPVC+Pipe'"></div>
           <div class="card-info">
             <h3>CPVC Pipes</h3>
             <p>Temperature resistant. Perfect for Hot & Cold water plumbing systems.</p>
             <span class="price-tag">₹420</span>
-            <button class="buy-btn" onclick="buyAction()">
+            
+            <button class="buy-btn" onclick="buyAction('CPVC Pipes')">
               <i class="fa-solid fa-cart-shopping"></i> Order Now
             </button>
           </div>
         </div>
 
         <div class="p-card reveal" style="transition-delay: 0.2s;">
-          <div class="img-box"><img src="Column pipes.jpg" alt="Column" onerror="this.src='https://via.placeholder.com/300x200?text=Column+Pipe'"></div>
+          <div class="img-box"><img src="/media/Column pipes.jpg" alt="Column" onerror="this.src='https://via.placeholder.com/300x200?text=Column+Pipe'"></div>
           <div class="card-info">
             <h3>Column Pipes</h3>
             <p>Heavy duty pipes designed for deep well submersible pumps.</p>
             <span class="price-tag">₹500</span>
-            <button class="buy-btn" onclick="buyAction()">
+            
+            <button class="buy-btn" onclick="buyAction('Column Pipes')">
               <i class="fa-solid fa-cart-shopping"></i> Order Now
             </button>
           </div>
@@ -265,48 +268,52 @@
       <div class="product-grid">
 
         <div class="p-card reveal">
-          <div class="img-box"><img src="elbow90.jpg" onerror="this.src='https://via.placeholder.com/300x200?text=Elbow+90'"></div>
+          <div class="img-box"><img src="/media/elbow90.jpg" onerror="this.src='https://via.placeholder.com/300x200?text=Elbow+90'"></div>
           <div class="card-info">
             <h3>Elbow 90°</h3>
             <p>Standard curve for corner joints and flow redirection.</p>
             <span class="price-tag">₹25</span>
-            <button class="buy-btn" onclick="buyAction()">
+            
+            <button class="buy-btn" onclick="buyAction('Elbow 90')">
               <i class="fa-solid fa-cart-shopping"></i> Order Now
             </button>
           </div>
         </div>
 
         <div class="p-card reveal" style="transition-delay: 0.1s;">
-          <div class="img-box"><img src="elbow45.jpg" onerror="this.src='https://via.placeholder.com/300x200?text=Elbow+45'"></div>
+          <div class="img-box"><img src="/media/elbow45.jpg" onerror="this.src='https://via.placeholder.com/300x200?text=Elbow+45'"></div>
           <div class="card-info">
             <h3>Elbow 45°</h3>
             <p>Smooth flow angle adjustment for complex plumbing.</p>
             <span class="price-tag">₹22</span>
-            <button class="buy-btn" onclick="buyAction()">
+            
+            <button class="buy-btn" onclick="buyAction('Elbow 45')">
               <i class="fa-solid fa-cart-shopping"></i> Order Now
             </button>
           </div>
         </div>
 
         <div class="p-card reveal" style="transition-delay: 0.2s;">
-          <div class="img-box"><img src="Tee Joint.jpg" onerror="this.src='https://via.placeholder.com/300x200?text=Tee+Joint'"></div>
+          <div class="img-box"><img src="/media/Tee Joint.jpg" onerror="this.src='https://via.placeholder.com/300x200?text=Tee+Joint'"></div>
           <div class="card-info">
             <h3>Tee Joint</h3>
             <p>Three-way flow distribution for splitting lines.</p>
             <span class="price-tag">₹30</span>
-            <button class="buy-btn" onclick="buyAction()">
+            
+            <button class="buy-btn" onclick="buyAction('Tee Joint')">
               <i class="fa-solid fa-cart-shopping"></i> Order Now
             </button>
           </div>
         </div>
 
         <div class="p-card reveal" style="transition-delay: 0.3s;">
-          <div class="img-box"><img src="Ball Valve.jpg" onerror="this.src='https://via.placeholder.com/300x200?text=Ball+Valve'"></div>
+          <div class="img-box"><img src="/media/Ball Valve.jpg" onerror="this.src='https://via.placeholder.com/300x200?text=Ball+Valve'"></div>
           <div class="card-info">
             <h3>Ball Valve</h3>
             <p>Precision water flow control mechanism. Leak proof.</p>
             <span class="price-tag">₹90</span>
-            <button class="buy-btn" onclick="buyAction()">
+            
+            <button class="buy-btn" onclick="buyAction('Ball Valve')">
               <i class="fa-solid fa-cart-shopping"></i> Order Now
             </button>
           </div>
@@ -338,10 +345,12 @@
     window.addEventListener("scroll", reveal);
     reveal(); // Trigger on load
 
-    // --- BUY ACTION ---
-    // Redirects to the Home Page Order Form
-    function buyAction() {
-      window.location.href = "{% url 'home' %}#order-section";
+    // --- BUY ACTION (MAIN LOGIC) ---
+    // Inga dhaan logic maatrikkom.
+    function buyAction(productName) {
+      // Home page-ku poi, automatic-a product select panna sollurom
+      var url = "{% url 'home' %}?auto_select=" + encodeURIComponent(productName) + "#order-section";
+      window.location.href = url;
     }
 
     // --- FILTER SCROLL ---
@@ -351,266 +360,6 @@
       // Update active button UI
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-    }
-  </script>
-
-</body>
-</html>{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pulari Pipes | Premium Product Catalog</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3EPP%3C/text%3E%3C/svg%3E">
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-  <style>
-    :root {
-      /* --- PRO THEME VARIABLES --- */
-      --bg-body: #f8fafc;
-      --card-bg: #ffffff;
-      --primary: #0ea5e9;
-      --primary-dark: #0284c7;
-      --accent: #f59e0b;
-      --text-head: #0f172a;
-      --text-body: #475569;
-      
-      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-      --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    * { box-sizing: border-box; outline: none; }
-
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--bg-body);
-      color: var(--text-body);
-      scroll-behavior: smooth;
-      overflow-x: hidden;
-    }
-
-    /* --- ANIMATION --- */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease-out;
-    }
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* --- NAVIGATION --- */
-    nav {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 15px 8%; 
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px); 
-      position: sticky; top: 0; z-index: 1000;
-      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-      box-shadow: var(--shadow-sm);
-    }
-    
-    .logo-area { display: flex; align-items: center; gap: 12px; }
-    .logo-circle { 
-        width: 45px; height: 45px; border-radius: 50%; 
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark)); 
-        color: white; font-weight:700; display:flex; align-items:center; justify-content:center;
-        box-shadow: 0 4px 10px rgba(14, 165, 233, 0.4);
-    }
-    .logo-area h2 { font-size: 20px; margin: 0; color: var(--primary-dark); font-weight: 800; }
-    
-    nav ul { list-style: none; display: flex; gap: 30px; margin: 0; padding: 0; }
-    nav ul li a { 
-        text-decoration: none; color: var(--text-head); font-weight: 500; font-size: 15px; 
-        transition: var(--transition); position: relative;
-    }
-    nav ul li a:hover { color: var(--primary); }
-
-    /* --- PAGE HEADER --- */
-    .header-section {
-      text-align: center;
-      padding: 80px 20px 40px;
-      background: linear-gradient(to bottom, #f0f9ff, #f8fafc);
-    }
-    .header-section h1 { font-size: clamp(32px, 5vw, 48px); color: var(--text-head); font-weight: 800; }
-    .header-section span { color: var(--primary); }
-    .header-section p { font-size: 16px; color: var(--text-body); max-width: 600px; margin: 15px auto 30px; }
-
-    /* --- FILTER BUTTONS --- */
-    .filter-box { display: flex; justify-content: center; gap: 15px; margin-top: 25px; flex-wrap: wrap; }
-    .filter-btn {
-      padding: 12px 30px; border-radius: 50px; border: 2px solid #e2e8f0;
-      background: white; color: var(--text-head); cursor: pointer; font-weight: 600;
-      transition: var(--transition); font-size: 15px;
-    }
-    .filter-btn:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
-    .filter-btn.active {
-      background: var(--primary); border-color: var(--primary); color: white;
-      box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
-    }
-
-    /* --- CATALOG SECTION --- */
-    .catalog-section { padding: 40px 8% 80px; }
-    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
-
-    /* --- PRO CARD DESIGN --- */
-    .p-card {
-      background: var(--card-bg); border-radius: 24px; border: 1px solid #f1f5f9;
-      overflow: hidden; transition: var(--transition); box-shadow: var(--shadow-sm);
-      position: relative; display: flex; flex-direction: column;
-    }
-    .p-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); border-color: #bae6fd; }
-
-    .img-box { width: 100%; height: 220px; overflow: hidden; background: #f1f5f9; }
-    .img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
-    .p-card:hover .img-box img { transform: scale(1.1); }
-
-    .card-info { padding: 25px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-    .card-info h3 { margin: 0; font-size: 20px; color: var(--text-head); font-weight: 700; }
-    .card-info p { font-size: 14px; color: var(--text-body); margin: 10px 0; line-height: 1.5; }
-    .price-tag { font-size: 24px; font-weight: 800; color: var(--primary); display: block; margin: 15px 0; }
-
-    .buy-btn {
-      width: 100%; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white; border: none; padding: 14px; border-radius: 12px;
-      font-weight: 600; cursor: pointer; display: flex; align-items: center;
-      justify-content: center; gap: 8px; transition: 0.3s;
-      box-shadow: 0 4px 10px rgba(14, 165, 233, 0.2);
-    }
-    .buy-btn:hover { gap: 15px; box-shadow: 0 8px 20px rgba(14, 165, 233, 0.4); transform: translateY(-2px); }
-
-    /* --- FOOTER --- */
-    footer { text-align: center; padding: 50px; border-top: 1px solid #e2e8f0; background: white; font-size: 14px; color: #64748b; }
-  </style>
-</head>
-
-<body>
-
-  <nav>
-    <div class="logo-area">
-      <div class="logo-circle" aria-hidden="true">PP</div>
-      <h2>PULARI PIPES</h2>
-    </div>
-    <ul>
-      <li><a href="{% url 'home' %}">Home</a></li> 
-      <li><a href="#" style="color:var(--primary)">Catalog</a></li>
-    </ul>
-  </nav>
-
-  <header class="header-section reveal">
-    <h1>Our Premium <span>Catalog</span></h1>
-    <p>Explore our range of ISI Certified pipes and fittings designed for durability and high pressure.</p>
-    
-    <div class="filter-box">
-      <button class="filter-btn active" onclick="filterSelection('all', this)">All Products</button>
-      <button class="filter-btn" onclick="filterSelection('Pipe', this)">Industrial Pipes</button>
-      <button class="filter-btn" onclick="filterSelection('Fitting', this)">PVC Fittings</button>
-    </div>
-  </header>
-
-  <main class="catalog-section">
-    <div class="product-grid">
-      
-      {% if items %}
-        {% for product in items %}
-          <div class="p-card reveal" data-cat="{{ product.category }}">
-            
-            <div class="img-box">
-              {% if product.image %}
-                <img src="{{ product.image.url }}" alt="{{ product.name }}">
-              {% else %}
-                <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#ccc;">
-                   <i class="fa-solid fa-image fa-3x"></i>
-                </div>
-              {% endif %}
-            </div>
-
-            <div class="card-info">
-              <div>
-                <h3>{{ product.name }}</h3>
-                <p>{{ product.description|truncatewords:20 }}</p>
-                <div style="font-size: 12px; background: #e0f2fe; color: #0284c7; display: inline-block; padding: 4px 10px; border-radius: 20px; margin-top: 5px;">
-                    {{ product.category }}
-                </div>
-              </div>
-              
-              <div>
-                <span class="price-tag">₹{{ product.price }}</span>
-                <button class="buy-btn" onclick="buyAction('{{ product.name }}')">
-                  <i class="fa-solid fa-cart-shopping"></i> Order Now
-                </button>
-              </div>
-            </div>
-
-          </div>
-        {% endfor %}
-      {% else %}
-         <p style="grid-column: 1/-1; text-align: center;">No products found in the database.</p>
-      {% endif %}
-      
-    </div>
-  </main>
-
-  <footer>
-    © 2025 PULARI PIPES — Cholapuram, Rajapalayam. <br>
-    Sister Concerns: Sri Balaji Enterprises | Sri Padma Enterprises
-  </footer>
-
-  <script>
-    // --- 1. SCROLL REVEAL ---
-    function reveal() {
-      var reveals = document.querySelectorAll(".reveal");
-      for (var i = 0; i < reveals.length; i++) {
-        var windowHeight = window.innerHeight;
-        var elementTop = reveals[i].getBoundingClientRect().top;
-        var elementVisible = 100;
-        if (elementTop < windowHeight - elementVisible) {
-          reveals[i].classList.add("active");
-        }
-      }
-    }
-    window.addEventListener("scroll", reveal);
-    reveal();
-
-    // --- 2. FILTER LOGIC ---
-    function filterSelection(category, btn) {
-      var cards = document.getElementsByClassName("p-card");
-      var btns = document.getElementsByClassName("filter-btn");
-      
-      // Reset active button
-      for (var i = 0; i < btns.length; i++) {
-        btns[i].classList.remove("active");
-      }
-      btn.classList.add("active");
-
-      // Show/Hide Cards
-      for (var i = 0; i < cards.length; i++) {
-        var cardCat = cards[i].getAttribute("data-cat");
-        
-        if (category == 'all') {
-          cards[i].style.display = "flex"; 
-        } else {
-          // Check match (Case insensitive)
-          if (cardCat && cardCat.toLowerCase().includes(category.toLowerCase())) {
-             cards[i].style.display = "flex";
-          } else {
-             cards[i].style.display = "none";
-          }
-        }
-      }
-    }
-
-    // --- 3. BUY ACTION (Auto-Select) ---
-    function buyAction(productName) {
-      // Redirects to Home Page with product name in URL
-      var url = "{% url 'home' %}?auto_select=" + encodeURIComponent(productName) + "#order-section";
-      window.location.href = url;
     }
   </script>
 
