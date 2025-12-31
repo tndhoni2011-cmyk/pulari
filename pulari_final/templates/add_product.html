@@ -1,0 +1,191 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product - Admin</title>
+    <link rel="stylesheet" href="{% static 'css/admin_style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="header-content">
+                <h1><i class="fas fa-plus-circle"></i> Add New Product</h1>
+                <div class="header-actions">
+                    <a href="{% url 'admin_dashboard' %}" class="btn-back">
+                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <section class="form-section">
+                <div class="form-container">
+                    {% if error %}
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-circle"></i> {{ error }}
+                        </div>
+                    {% endif %}
+
+                    <form method="POST" enctype="multipart/form-data" class="product-form">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label for="name" class="form-label">
+                                <i class="fas fa-tag"></i> Product Name *
+                            </label>
+                            <input 
+                                type="text" 
+                                id="name" 
+                                name="name" 
+                                class="form-input" 
+                                placeholder="e.g., PVC Pipe 1 inch"
+                                required
+                            >
+                            <small>Enter the product name clearly</small>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="category" class="form-label">
+                                    <i class="fas fa-folder"></i> Category *
+                                </label>
+                                <select id="category" name="category" class="form-input" required>
+                                    <option value="">-- Select Category --</option>
+                                    <option value="PVC">PVC</option>
+                                    <option value="CPVC">CPVC</option>
+                                    <option value="Metal">Metal</option>
+                                    <option value="Plastic">Plastic</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <small>Choose the product category</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="price" class="form-label">
+                                    <i class="fas fa-rupee-sign"></i> Price (₹) *
+                                </label>
+                                <input 
+                                    type="number" 
+                                    id="price" 
+                                    name="price" 
+                                    step="0.01"
+                                    min="0"
+                                    class="form-input" 
+                                    placeholder="e.g., 150.50"
+                                    required
+                                >
+                                <small>Enter product price</small>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="stock" class="form-label">
+                                    <i class="fas fa-cubes"></i> Stock Quantity *
+                                </label>
+                                <input 
+                                    type="number" 
+                                    id="stock" 
+                                    name="stock" 
+                                    min="0"
+                                    class="form-input" 
+                                    placeholder="e.g., 100"
+                                    required
+                                >
+                                <small>Enter available stock quantity</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="image" class="form-label">
+                                    <i class="fas fa-image"></i> Product Image
+                                </label>
+                                <input 
+                                    type="file" 
+                                    id="image" 
+                                    name="image" 
+                                    class="form-input"
+                                    accept="image/*"
+                                >
+                                <small>Upload product image (optional)</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description" class="form-label">
+                                <i class="fas fa-align-left"></i> Description *
+                            </label>
+                            <textarea 
+                                id="description" 
+                                name="description" 
+                                class="form-textarea" 
+                                rows="6"
+                                placeholder="Enter detailed product description..."
+                                required
+                            ></textarea>
+                            <small>Provide complete product details</small>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-save"></i> Add Product
+                            </button>
+                            <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary btn-lg">
+                                <i class="fas fa-times"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Help Section -->
+            <section class="help-section">
+                <h3><i class="fas fa-info-circle"></i> Add Product Tips</h3>
+                <ul>
+                    <li><strong>Product Name:</strong> Use clear, descriptive names that customers will understand</li>
+                    <li><strong>Category:</strong> Select the appropriate category for better organization</li>
+                    <li><strong>Price:</strong> Enter the selling price for this product</li>
+                    <li><strong>Stock:</strong> Initial quantity available in inventory</li>
+                    <li><strong>Image:</strong> Upload clear product image for better visibility</li>
+                    <li><strong>Description:</strong> Include specifications, dimensions, and key features</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <style>
+        .help-section {
+            background: #f8f9fa;
+            border-left: 4px solid #4CAF50;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .help-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .help-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .help-section li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+            color: #666;
+        }
+
+        .help-section li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</body>
+</html>

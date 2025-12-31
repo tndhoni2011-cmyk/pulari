@@ -1,0 +1,217 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Product Management</title>
+    <link rel="stylesheet" href="{% static 'css/admin_style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="header-content">
+                <h1><i class="fas fa-chart-line"></i> Admin Dashboard</h1>
+                <div class="header-actions">
+                    <span class="user-info">Admin User</span>
+                    <a href="{% url 'admin:logout' %}" class="btn-logout">Logout</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Stats Section -->
+            <section class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-icon products">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Total Products</h3>
+                        <p class="stat-number">{{ total_products }}</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon low-stock">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Low Stock Items</h3>
+                        <p class="stat-number">{{ low_stock_products.count }}</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Products Section -->
+            <section class="products-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-list"></i> Products Inventory</h2>
+                    <a href="{% url 'add_product' %}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add New Product
+                    </a>
+                </div>
+
+                {% if products %}
+                    <div class="table-wrapper">
+                        <table class="products-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Product Name</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
+                                    <th>Stock Status</th>
+                                    <th>Description</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in products %}
+                                    <tr class="{% if product.stock < 10 %}low-stock-row{% endif %}">
+                                        <td><strong>#{{ product.id }}</strong></td>
+                                        <td>{{ product.name }}</td>
+                                        <td><span class="badge category-{{ product.category|slugify }}">{{ product.category }}</span></td>
+                                        <td><strong>₹{{ product.price }}</strong></td>
+                                        <td class="stock-cell">
+                                            <span class="stock-number">{{ product.stock }}</span>
+                                        </td>
+                                        <td>
+                                            {% if product.stock < 5 %}
+                                                <span class="badge-danger"><i class="fas fa-times-circle"></i> Out of Stock</span>
+                                            {% elif product.stock < 10 %}
+                                                <span class="badge-warning"><i class="fas fa-exclamation"></i> Low Stock</span>
+                                            {% else %}
+                                                <span class="badge-success"><i class="fas fa-check-circle"></i> In Stock</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="description-cell">
+                                            <span class="description-text" title="{{ product.description }}">
+                                                {{ product.description|truncatewords:8 }}
+                                            </span>
+                                        </td>
+                                        <td class="actions-cell">
+                                            <a href="{% url 'edit_product' product.id %}" class="btn-icon btn-edit" title="Edit Product">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <button class="btn-icon btn-delete" onclick="deleteProduct({{ product.id }}, '{{ product.name|escapejs }}');" title="Delete Product">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <h3>No Products Yet</h3>
+                        <p>Start by adding your first product to the inventory.</p>
+                        <a href="{% url 'add_product' %}" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add First Product
+                        </a>
+                    </div>
+                {% endif %}
+            </section>
+
+            <!-- Low Stock Alert -->
+            {% if low_stock_products %}
+                <section class="alert-section">
+                    <h2><i class="fas fa-bell"></i> Stock Alerts</h2>
+                    <div class="alert-box alert-warning">
+                        <h3>Low Stock Items - Reorder Recommended!</h3>
+                        <ul>
+                            {% for product in low_stock_products %}
+                                <li><strong>{{ product.name }}</strong> ({{ product.stock }} remaining)</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </section>
+            {% endif %}
+        </main>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirm Delete</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <strong id="productName"></strong>?</p>
+                <p class="warning-text"><i class="fas fa-exclamation-circle"></i> This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-danger" id="confirmDeleteBtn">Delete Product</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script>
+        let deleteProductId = null;
+
+        function deleteProduct(productId, productName) {
+            deleteProductId = productId;
+            document.getElementById('productName').textContent = productName;
+            document.getElementById('deleteModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+            deleteProductId = null;
+        }
+
+        document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || 
+                             document.cookie.split('; ').find(row => row.startsWith('csrftoken='))?.split('=')[1];
+            
+            fetch(`{% url 'delete_product' 0 %}`.replace('0', deleteProductId), {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                closeModal();
+                if (data.status === 'success') {
+                    showToast(data.message, 'success');
+                    setTimeout(() => location.reload(), 1500);
+                } else {
+                    showToast(data.message, 'error');
+                }
+            })
+            .catch(error => {
+                closeModal();
+                showToast('Error deleting product', 'error');
+                console.error('Error:', error);
+            });
+        });
+
+        function showToast(message, type) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast show ' + type;
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('deleteModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
